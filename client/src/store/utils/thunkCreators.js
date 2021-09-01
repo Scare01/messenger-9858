@@ -72,7 +72,13 @@ export const logout = (id) => async (dispatch) => {
 export const fetchConversations = () => async (dispatch) => {
   try {
     const { data } = await axios.get("/api/conversations");
-    dispatch(gotConversations(data));
+
+    const preparedData = data.map(con => ({
+      ...con,
+      messages: con.messages.sort((a, b) => a.createdAt > b.createdAt ? 1 : -1),
+    }));
+
+    dispatch(gotConversations(preparedData));
   } catch (error) {
     console.error(error);
   }
@@ -94,6 +100,7 @@ const sendMessage = (data, body) => {
 // message format to send: {recipientId, text, conversationId}
 // conversationId will be set to null if its a brand new conversation
 export const postMessage = (body) => async (dispatch) => {
+  console.log(body);
   try {
     const data = await saveMessage(body);
 
