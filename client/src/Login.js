@@ -8,53 +8,13 @@ import {
   FormControl,
   TextField,
 } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
 import { login } from './store/utils/thunkCreators';
+import { useStyles } from './styles';
 
 import './index.css';
 
-const useStyles = makeStyles(theme => ({
-  mainContainer: {
-    height: '100vh',
-  },
-  submitButton: {
-      width: '160px',
-      height: '66px',
-      backgroundColor: '#3A8DFF',
-      borderRadius: '3px',
-      color: '#FFFFFF',
-      fontSize: '16px',
-      '&:hover': {
-        opacity: '0.8',
-        backgroundColor: '#3A8DFF',
-      }
-  },
-  redirectButton: {
-    width: '160px',
-    height: '66px',
-    backgroundColor: '#FFFFFF',
-    color: '#3A8DFF',
-    fontSize: '14px',
-    boxShadow: '0 2px 12px 0 rgba(74,106,149,0.20)',
-    borderRadius: '5px',
-  },
-  formControl: {
-    height: '66px',
-    '& .MuiInputLabel-shrink': {
-      transform:' translate(0, -15px) scale(0.75)',
-    },
-    '& .MuiInputBase-input': {
-      padding: '10px 0',
-
-      '&:-webkit-autofill': {
-          WebkitBoxShadow: '0 0 0 1000px white inset',
-      }
-    },
-  },
-}));
-
 const Login = (props) => {
-  const classes = useStyles()
+  const classes = useStyles();
   const history = useHistory();
   const { user, login } = props;
 
@@ -83,7 +43,7 @@ const Login = (props) => {
         </Grid>
         <Grid item lg={6}>
           <div className='form-title'>Welcome back!</div>
-          <form onSubmit={handleLogin} className='form'>
+          <form onSubmit={handleLogin} className='form login-form'>
             <FormControl margin='normal' required fullWidth classes={{ root: classes.formControl}}>
               <TextField
                   aria-label='email address'

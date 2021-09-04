@@ -43,8 +43,16 @@ code {
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
+}
+
+.login-form {
   height: 358px;
 }
+
+.signup-form {
+  height: 424px;
+}
+
 
 .redirect-block {
   position: absolute;
@@ -65,11 +73,12 @@ code {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 90px;
+    height: 100px;
     right: 0;
   }
 
   .redirect-block > p {
     margin-right: 0;
+    margin-bottom: 10px;
   }
 }
