@@ -11,12 +11,6 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 
-.title-change-page {
-  font-size: 14px;
-  color: #B0B0B0;
-  text-align: center;
-}
-
 .logo {
   width: 100%;
   height: 100%;
@@ -25,17 +19,6 @@ code {
   -webkit-background-size: 100%;
   -o-background-size: 100%;
   background-size: 100%;
-}
-
-.form-block {
-  position:relative;
-}
-
-.form-title {
-  font-size: 26px;
-  color: #000000;
-  line-height: 40px;
-  margin-bottom: 33px;
 }
 
 .form {
@@ -51,34 +34,4 @@ code {
 
 .signup-form {
   height: 424px;
-}
-
-
-.redirect-block {
-  position: absolute;
-  height: 54px;
-  width: 351px;
-  align-items: center;
-  right: 30px;
-  top: 30px;
-  justify-content: flex-end;
-}
-
-.redirect-block > p {
-  margin-right: 20px;
-}
-
-@media screen and (max-device-width: 430px) {
-  .redirect-block {
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100px;
-    right: 0;
-  }
-
-  .redirect-block > p {
-    margin-right: 0;
-    margin-bottom: 10px;
-  }
 }

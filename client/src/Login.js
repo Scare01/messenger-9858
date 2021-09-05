@@ -7,6 +7,7 @@ import {
   Button,
   FormControl,
   TextField,
+  Box,
 } from '@material-ui/core';
 import { login } from './store/utils/thunkCreators';
 import { useStyles } from './styles';
@@ -33,16 +34,16 @@ const Login = (props) => {
   return (
     <Grid container classes={{ root: classes.mainContainer}}>
       <Grid item lg={5} md={12} sm={0} justifyContent='flex-start'>
-        <div className='logo' />
+        <Box className='logo' />
       </Grid>
 
-      <Grid item lg={7} md={12} sm={12} container justifyContent='center' alignItems='center' className='form-block'>
-        <Grid lg={7} md={12} sm={12} container className='redirect-block'>
-          <Typography className='title-change-page'>Don't have an account?</Typography>
+      <Grid item lg={7} md={12} sm={12} container justifyContent='center' alignItems='center' classes={{ root: classes.loginSignupContainer }}>
+        <Grid lg={7} md={12} sm={12} container classes={{ root: classes.redirectBlock }}>
+          <Typography classes={{ root: classes.titleChangePage }}>Don't have an account?</Typography>
           <Button onClick={() => history.push('/register')} classes={{ root: classes.redirectButton}}>Create account</Button>
         </Grid>
         <Grid item lg={6}>
-          <div className='form-title'>Welcome back!</div>
+          <Typography classes={{ root: classes.formTitle }}>Welcome back!</Typography>
           <form onSubmit={handleLogin} className='form login-form'>
             <FormControl margin='normal' required fullWidth classes={{ root: classes.formControl}}>
               <TextField
