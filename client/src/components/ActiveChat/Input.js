@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { FormControl, FilledInput, SvgIcon } from "@material-ui/core";
+import { FormControl, FilledInput, SvgIcon, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { connect } from "react-redux";
 import { postMessage } from "../../store/utils/thunkCreators";
@@ -41,11 +41,17 @@ const useStyles = makeStyles(() => ({
   inputUpload: {
     visibility: 'hidden',
   },
+  sendImageBlock: {
+    display: 'flex',
+    flexDirection: 'row',
+    width: '200px'
+  }
 }));
 
 const Input = (props) => {
   const classes = useStyles();
   const [text, setText] = useState("");
+  const [files, setFiles] = useState([]);
   const { postMessage, otherUser, conversationId, user } = props;
 
   const inputFile = useRef(null)
@@ -62,10 +68,12 @@ const Input = (props) => {
       text: event.target.text.value,
       recipientId: otherUser.id,
       conversationId,
-      sender: conversationId ? null : user
+      sender: conversationId ? null : user,
+      attachments: files,
     };
     await postMessage(reqBody);
     setText("");
+    setFiles([]);
   };
 
   function uploadFile(file) {
@@ -78,8 +86,7 @@ const Input = (props) => {
     xhr.onreadystatechange = (e) => {
       if (xhr.readyState == 4 && xhr.status == 200) {
         const response = JSON.parse(xhr.responseText);
-
-        console.log(response.secure_url);
+        setFiles([...files, response.secure_url]);
       }
     };
 
@@ -91,6 +98,7 @@ const Input = (props) => {
 
   return (
     <form className={classes.root} onSubmit={handleSubmit}>
+      {files.length > 0 && <Button type='submit' size='small'>Send {files.length} image(s)</Button>}
       <FormControl fullWidth hiddenLabel>
         <FilledInput
           classes={{ root: classes.input }}
