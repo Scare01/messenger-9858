@@ -6,8 +6,6 @@ import { postMessage } from "../../store/utils/thunkCreators";
 
 import InsertDriveFileIcon from '@material-ui/icons/InsertDriveFile';
 
-const cloudinary = require('cloudinary/lib/cloudinary');
-
 const useStyles = makeStyles(() => ({
   root: {
     justifySelf: "flex-end",
@@ -41,7 +39,7 @@ const useStyles = makeStyles(() => ({
     marginBottom: 20,
   },
   inputUpload: {
-    display: 'none',
+    visibility: 'hidden',
   },
 }));
 
@@ -56,14 +54,6 @@ const Input = (props) => {
     setText(event.target.value);
   };
 
-  const uploadFiles = (file) => {
-    cloudinary.uploader.upload(file, function(error, result) {console.log(result, error)});
-  }
-
-
-  const prepareFilesToUpload = (files) => {
-    files.forEach(file => uploadFiles(file.name));
-  }
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -77,6 +67,27 @@ const Input = (props) => {
     await postMessage(reqBody);
     setText("");
   };
+
+  function uploadFile(file) {
+    const url = `https://api.cloudinary.com/v1_1/dbxo3rerz/upload`;
+    const xhr = new XMLHttpRequest();
+    const fd = new FormData();
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+
+    xhr.onreadystatechange = (e) => {
+      if (xhr.readyState == 4 && xhr.status == 200) {
+        const response = JSON.parse(xhr.responseText);
+
+        console.log(response.secure_url);
+      }
+    };
+
+    fd.append("upload_preset",'sfjqvo6q');
+    fd.append("tags", "browser_upload");
+    fd.append("file", file[0]);
+    xhr.send(fd);
+  }
 
   return (
     <form className={classes.root} onSubmit={handleSubmit}>
@@ -99,7 +110,7 @@ const Input = (props) => {
             className='input-upload'
             type="file"
             ref={inputFile}
-            onChange={event => uploadFiles(event.target.files)}
+            onChange={event => uploadFile(event.target.files)}
         />
       </FormControl>
     </form>
