@@ -28,12 +28,42 @@ const useStyles = makeStyles(() => ({
     color: "#FFFFFF",
     letterSpacing: -0.2,
     padding: 8
+  },
+  bubbleWithoutText: {
+    background: 'none',
+    borderRadius: "10px 10px 0 10px"
+  },
+  image: {
+    width: '150px',
+    height: '100px',
+    padding: '0',
+    marginLeft: '5px',
+    borderRadius: '15px',
+  },
+  imageWithText: {
+    width: '150px',
+    height: '100px',
+    padding: '0',
+    marginLeft: '0',
+    borderRadius: '15px',
   }
 }));
 
 const OtherUserBubble = (props) => {
   const classes = useStyles();
-  const { text, time, otherUser } = props;
+  const { text, time, otherUser, attachments } = props;
+
+  const renderImages = () => {
+    if (!attachments) {
+      return null;
+    }
+    return (
+        <Box className={classes.imageBox}>
+          { attachments.map(attach => <img src={attach} className={text ? classes.imageWithText : classes.image} />)}
+        </Box>
+    )
+  }
+
   return (
     <Box className={classes.root}>
       <Avatar alt={otherUser.username} src={otherUser.photoUrl} className={classes.avatar}></Avatar>
@@ -42,7 +72,8 @@ const OtherUserBubble = (props) => {
           {otherUser.username} {time}
         </Typography>
         <Box className={classes.bubble}>
-          <Typography className={classes.text}>{text}</Typography>
+          {renderImages()}
+          {text && <Typography className={classes.text}>{text}</Typography>}
         </Box>
       </Box>
     </Box>
