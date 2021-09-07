@@ -1,17 +1,21 @@
-import React from "react";
-import { Redirect, useHistory } from "react-router-dom";
-import { connect } from "react-redux";
+import React from 'react';
+import { Redirect, useHistory } from 'react-router-dom';
+import { connect } from 'react-redux';
 import {
   Grid,
-  Box,
   Typography,
   Button,
   FormControl,
   TextField,
-} from "@material-ui/core";
-import { login } from "./store/utils/thunkCreators";
+  Box,
+} from '@material-ui/core';
+import { login } from './store/utils/thunkCreators';
+import { useStyles } from './styles';
+
+import './index.css';
 
 const Login = (props) => {
+  const classes = useStyles();
   const history = useHistory();
   const { user, login } = props;
 
@@ -24,44 +28,49 @@ const Login = (props) => {
   };
 
   if (user.id) {
-    return <Redirect to="/home" />;
+    return <Redirect to='/home' />;
   }
 
   return (
-    <Grid container justifyContent="center">
-      <Box>
-        <Grid container item>
-          <Typography>Need to register?</Typography>
-          <Button onClick={() => history.push("/register")}>Register</Button>
+    <Grid container classes={{ root: classes.mainContainer}}>
+      <Grid item lg={5} md={12} sm={0} justifyContent='flex-start'>
+        <Box className='logo' />
+      </Grid>
+
+      <Grid item lg={7} md={12} sm={12} container justifyContent='center' alignItems='center' classes={{ root: classes.loginSignupContainer }}>
+        <Grid lg={7} md={12} sm={12} container classes={{ root: classes.redirectBlock }}>
+          <Typography classes={{ root: classes.titleChangePage }}>Don't have an account?</Typography>
+          <Button onClick={() => history.push('/register')} classes={{ root: classes.redirectButton}}>Create account</Button>
         </Grid>
-        <form onSubmit={handleLogin}>
-          <Grid>
-            <Grid>
-              <FormControl margin="normal" required>
-                <TextField
-                  aria-label="username"
-                  label="Username"
-                  name="username"
-                  type="text"
-                />
-              </FormControl>
-            </Grid>
-            <FormControl margin="normal" required>
+        <Grid item lg={6}>
+          <Typography classes={{ root: classes.formTitle }}>Welcome back!</Typography>
+          <form onSubmit={handleLogin} className='form login-form'>
+            <FormControl margin='normal' required fullWidth classes={{ root: classes.formControl}}>
               <TextField
-                label="password"
-                aria-label="password"
-                type="password"
-                name="password"
+                  aria-label='email address'
+                  label='E-mail address'
+                  name='username'
+                  type='text'
+                  fullWidth
+                  size='medium'
               />
             </FormControl>
-            <Grid>
-              <Button type="submit" variant="contained" size="large">
-                Login
-              </Button>
-            </Grid>
-          </Grid>
-        </form>
-      </Box>
+            <FormControl margin='normal' required fullWidth classes={{ root: classes.formControl}}>
+              <TextField
+                  label='password'
+                  aria-label='password'
+                  type='password'
+                  name='password'
+                  fullWidth
+                  size='medium'
+              />
+            </FormControl>
+            <Button type='submit' variant='contained' classes={{ root: classes.submitButton}}>
+              Login
+            </Button>
+          </form>
+        </Grid>
+      </Grid>
     </Grid>
   );
 };
