@@ -27,7 +27,6 @@ const useStyles = makeStyles(() => ({
     },
 
     '& .input-upload': {
-      // display: 'none',
       visibility: 'hidden',
     },
 

@@ -85,7 +85,6 @@ export const fetchConversations = () => async (dispatch) => {
 };
 
 const saveMessage = async (body) => {
-  console.log('body', body);
   const { data } = await axios.post("/api/messages", body);
   return data;
 };
@@ -101,7 +100,6 @@ const sendMessage = (data, body) => {
 // message format to send: {recipientId, text, conversationId}
 // conversationId will be set to null if its a brand new conversation
 export const postMessage = (body) => async (dispatch) => {
-  console.log('in post message');
   try {
     const data = await saveMessage(body);
 
