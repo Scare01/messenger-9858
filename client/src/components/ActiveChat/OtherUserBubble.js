@@ -1,6 +1,7 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box, Typography, Avatar } from "@material-ui/core";
+import { ChatImage } from './ChatImage';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -33,36 +34,11 @@ const useStyles = makeStyles(() => ({
     background: 'none',
     borderRadius: "10px 10px 0 10px"
   },
-  image: {
-    width: '150px',
-    height: '100px',
-    padding: '0',
-    marginLeft: '5px',
-    borderRadius: '15px',
-  },
-  imageWithText: {
-    width: '150px',
-    height: '100px',
-    padding: '0',
-    marginLeft: '0',
-    borderRadius: '15px',
-  }
 }));
 
 const OtherUserBubble = (props) => {
   const classes = useStyles();
   const { text, time, otherUser, attachments } = props;
-
-  const renderImages = () => {
-    if (!attachments) {
-      return null;
-    }
-    return (
-        <Box className={classes.imageBox}>
-          { attachments.map(attach => <img src={attach} className={text ? classes.imageWithText : classes.image} />)}
-        </Box>
-    )
-  }
 
   return (
     <Box className={classes.root}>
@@ -72,7 +48,7 @@ const OtherUserBubble = (props) => {
           {otherUser.username} {time}
         </Typography>
         <Box className={classes.bubble}>
-          {renderImages()}
+          <ChatImage attachments={attachments} text={text} />
           {text && <Typography className={classes.text}>{text}</Typography>}
         </Box>
       </Box>
