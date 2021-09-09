@@ -1,6 +1,7 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box, Typography, Avatar } from "@material-ui/core";
+import { ChatImage } from './ChatImage';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -28,12 +29,17 @@ const useStyles = makeStyles(() => ({
     color: "#FFFFFF",
     letterSpacing: -0.2,
     padding: 8
-  }
+  },
+  bubbleWithoutText: {
+    background: 'none',
+    borderRadius: "10px 10px 0 10px"
+  },
 }));
 
 const OtherUserBubble = (props) => {
   const classes = useStyles();
-  const { text, time, otherUser } = props;
+  const { text, time, otherUser, attachments } = props;
+
   return (
     <Box className={classes.root}>
       <Avatar alt={otherUser.username} src={otherUser.photoUrl} className={classes.avatar}></Avatar>
@@ -42,7 +48,8 @@ const OtherUserBubble = (props) => {
           {otherUser.username} {time}
         </Typography>
         <Box className={classes.bubble}>
-          <Typography className={classes.text}>{text}</Typography>
+          <ChatImage attachments={attachments} text={text} />
+          {text && <Typography className={classes.text}>{text}</Typography>}
         </Box>
       </Box>
     </Box>
